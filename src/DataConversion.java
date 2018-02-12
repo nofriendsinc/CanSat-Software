@@ -23,7 +23,7 @@ public class DataConversion
 		}
 		catch(FileNotFoundException e)
 		{
-			System.out.println("File not found");
+			System.out.println("File not found\nStephen you're dumb");
 		}
 		
 		fileRead.nextLine();
