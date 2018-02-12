@@ -38,10 +38,7 @@ public class DataConversion
 			for(int i = 0; i < fileIn.length(); i += 2)
 			{
 		        char out = (char)Integer.parseInt(fileIn.substring(i, i+2), 16);
-		        if(out == (char)9)
-		        {
-		        	out = ',';
-		        }
+		        if(out == (char)9)  out = ',';
 		        writer.print(out);
 			}
 		}
