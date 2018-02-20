@@ -13,17 +13,18 @@ public class DataConversion
 		String fileIn = "";
 		String fileOut = "";
 		
-		FileOutputStream fileWrite = new FileOutputStream(new File("CANSAT2018_TLM_<TEAM_ID>_<TEAM_NAME>.csv"));
+		FileOutputStream fileWrite = new FileOutputStream(new File("CANSAT2018_TLM_TEAM_ID_TEAM_NAME.csv"));
 		PrintWriter writer = new PrintWriter(fileWrite);
 		
 		try
 		{
-			FileInputStream fileReader = new FileInputStream("input.txt");
+			FileInputStream fileReader = new FileInputStream("input.log");
 			fileRead = new Scanner(fileReader);
 		}
 		catch(FileNotFoundException e)
 		{
 			System.out.println("File not found\nStephen you're dumb");
+			System.exit(0);;
 		}
 		
 		fileRead.nextLine();
