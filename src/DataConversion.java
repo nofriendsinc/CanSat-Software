@@ -31,9 +31,13 @@ public class DataConversion
 		fileRead.nextLine();
 		fileRead.nextLine();
 		
+		Scanner input;
+		boolean can = true;
+		String in;
+		
 		while(fileRead.hasNext())
 		{
-			fileIn = fileRead.nextLine().substring(34);
+			fileIn = fileRead.nextLine().substring(35);
 			fileOut = "";
 			
 			for(int i = 0; i < fileIn.length(); i += 2)
