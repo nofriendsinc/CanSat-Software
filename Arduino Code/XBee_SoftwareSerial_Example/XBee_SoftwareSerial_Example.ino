@@ -28,10 +28,10 @@
 
  */
 #include <SoftwareSerial.h>
-#include <Wire.h> // Must include Wire library for I2C
-#include <SFE_MMA8452Q.h> // Includes the SFE_MMA8452Q library
+//#include <Wire.h> // Must include Wire library for I2C
+//#include <SFE_MMA8452Q.h> // Includes the SFE_MMA8452Q library
 
-MMA8452Q accel; // Default MMA8452Q object create. (Address = 0x1D)
+//MMA8452Q accel; // Default MMA8452Q object create. (Address = 0x1D)
 SoftwareSerial mySerial(10, 11); // RX, TX
 
 void setup() {
@@ -41,7 +41,7 @@ void setup() {
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
-  accel.init(); // Default init: +/-2g and 800Hz ODR
+//  accel.init(); // Default init: +/-2g and 800Hz ODR
 
   // set the data rate for the SoftwareSerial port
   mySerial.begin(9600);
@@ -56,7 +56,7 @@ void loop() { // run over and over
     mySerial.write(Serial.read());
   }
   
-  accel.read(); // Update acceleromter data
+  /*accel.read(); // Update acceleromter data
   float totalG = sqrt(sq(accel.cx) + sq(accel.cy) + sq(accel.cz));
   float theta = atan(accel.cy / accel.cx);
   float phi = acos(accel.cz / totalG);
@@ -65,13 +65,13 @@ void loop() { // run over and over
   Serial.print(", ");
   Serial.print(toDegree(theta));
   Serial.print(", ");
-  Serial.println(toDegree(phi));*/
+  Serial.println(toDegree(phi));
 
   Serial.print(accel.cx);
   Serial.print(", ");
   Serial.print(accel.cy);
   Serial.print(", ");
-  Serial.println(accel.cz);
+  Serial.println(accel.cz);*/
 }
 
 float toDegree(float rad) {
