@@ -13,7 +13,7 @@ public class DataConversion
 		String fileIn = "";
 		String fileOut = "";
 		
-		FileOutputStream fileWrite = new FileOutputStream(new File("CANSAT2018_TLM_TEAM_ID_TEAM_NAME.csv"));
+		FileOutputStream fileWrite = new FileOutputStream(new File("CANSAT2018_TLM_5554_DILIH.csv"));
 		PrintWriter writer = new PrintWriter(fileWrite);
 		
 		try

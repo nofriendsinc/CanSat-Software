@@ -1,4 +1,6 @@
 #include <ArduinoSTL.h>
+#include <Wire.h> // Must include Wire library for I2C
+#include <SFE_MMA8452Q.h> // Includes the SFE_MMA8452Q library
 
 /*
   Software serial multple serial test
@@ -27,12 +29,11 @@
  This example code is in the public domain.
 
  */
-#include <SoftwareSerial.h>
-//#include <Wire.h> // Must include Wire library for I2C
-//#include <SFE_MMA8452Q.h> // Includes the SFE_MMA8452Q library
 
-//MMA8452Q accel; // Default MMA8452Q object create. (Address = 0x1D)
-SoftwareSerial mySerial(10, 11); // RX, TX
+MMA8452Q accel; // Default MMA8452Q object create. (Address = 0x1D)
+bool canGo = true;
+int pack = 1;
+int state = 2;
 
 void setup() {
   // Open serial communications and wait for port to open:
@@ -41,41 +42,54 @@ void setup() {
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
-//  accel.init(); // Default init: +/-2g and 800Hz ODR
-
-  // set the data rate for the SoftwareSerial port
-  mySerial.begin(9600);
-  mySerial.println("Hello, world?");
+  accel.init(); // Default init: +/-2g and 800Hz ODR
+  Serial.flush();
 }
 
-void loop() { // run over and over
-  if (mySerial.available()) {
-    Serial.write(mySerial.read());
-  }
-  if (Serial.available()) {
-    mySerial.write(Serial.read());
-  }
-  
-  /*accel.read(); // Update acceleromter data
-  float totalG = sqrt(sq(accel.cx) + sq(accel.cy) + sq(accel.cz));
+void loop() { // run over and over  
+  accel.read(); // Update acceleromter data
+  float mag = sqrt(sq(accel.cx) + sq(accel.cy) + sq(accel.cz));
   float theta = atan(accel.cy / accel.cx);
-  float phi = acos(accel.cz / totalG);
+  float atheta = atan(accel.cx / accel.cy);
+  float phi = acos(accel.cz / mag);
 
-  /*Serial.print(totalG);
-  Serial.print(", ");
-  Serial.print(toDegree(theta));
-  Serial.print(", ");
-  Serial.println(toDegree(phi));
+  //Serial.println(Serial.read());
 
-  Serial.print(accel.cx);
-  Serial.print(", ");
-  Serial.print(accel.cy);
-  Serial.print(", ");
-  Serial.println(accel.cz);*/
+  switch (state)  {
+    case 0:
+      if(Serial.read() == 104 && !canGo)  {
+        Serial.println("Received");
+        //state = 3;
+      }
+      break;
+    case 1:
+    if(Serial.read() == 104 && !canGo)  {
+      Serial.read();
+    }
+    if(Serial.read() != 104 && !canGo)  {
+      state = 0;
+    }
+    break;
+    case 3:  
+      if(Serial.read() == 108 & canGo)  {
+        canGo = true;
+        state = 2;
+      }
+      break;
+    case 2:
+      if(canGo)  {
+        Serial.println(millis() / 1000.0);
+        Serial.println(pack);
+        Serial.println(theta);
+        Serial.println(atheta);
+        Serial.println(phi);
+        pack += 1;
+      }
+      break;
+  }
 }
 
 float toDegree(float rad) {
-  return (rad *180) / PI;
+  return (rad * 180) / 2;
 }
-
 

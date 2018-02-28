@@ -5,22 +5,25 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 public class SerialTest implements SerialPortEventListener
 {
 	SerialPort serialPort;
 	/** The port we're normally going to use. */
-	private static final String PORT_NAMES[] = { "/dev/tty.usbserial-A9007UX1", // Mac
-																				// OS
-																				// X
-			"/dev/ttyUSB0", // Linux
-			"COM35", // Windows
-	};
+	private static final String PORT_NAMES[] = {"COM5"};
 	private BufferedReader input;
-	private OutputStream output;
+	private static OutputStream output;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
+	static int lineNum = 1;
+	static int index = 0;
+	static ArrayList<packet> pack = new ArrayList<packet>();
+	static boolean isReceiving = false;
+	static boolean doPrint = false;
+	static boolean isReady = false;
 
 	public void initialize()
 	{
@@ -79,13 +82,56 @@ public class SerialTest implements SerialPortEventListener
 		{
 			try
 			{
-				String inputLine = null;
+				String inputLine = "";
 				if (input.ready())
 				{
 					inputLine = input.readLine();
-					System.out.println(inputLine);
+					//System.out.println(inputLine);
+					if(!inputLine.substring(0, 2).equals("00"))	
+					{
+						isReceiving = true;
+						doPrint = true;
+						switch (lineNum)
+						{
+						case 1:
+							pack.add(new packet());
+							pack.get(index).setMissionTime(Float.parseFloat(inputLine));
+							System.out.println("t = " + pack.get(index).getPacketCount());
+							lineNum = 2;
+							break;
+						case 2:
+							pack.get(index).setPacketCount(Integer.parseInt(inputLine));
+							System.out.println("p = " + pack.get(index).getPacketCount());
+							lineNum = 3;
+							break;
+						case 3:
+							pack.get(index).setTiltX(Double.parseDouble(inputLine));
+							System.out.println("x = " + pack.get(index).getTiltX());
+							lineNum = 4;
+							break;
+						case 4:
+							pack.get(index).setTiltY(Double.parseDouble(inputLine));
+							System.out.println("y = " + pack.get(index).getTiltY());
+							lineNum = 5;
+							break;
+						case 5:
+							pack.get(index).setTiltZ(Double.parseDouble(inputLine));
+							System.out.println("z = " + pack.get(index).getTiltZ());
+							lineNum = 1;
+							index++;
+							break;
+						}
+					}
+					else	
+					{
+						isReceiving = false;
+					}
+					if(!isReceiving && doPrint)	
+					{
+						System.out.println("ERROR ERROR");
+						doPrint = false;
+					}
 				}
-
 			} catch (Exception e)
 			{
 				System.err.println(e.toString());
@@ -114,7 +160,60 @@ public class SerialTest implements SerialPortEventListener
 				}
 			}
 		};
+		Thread r = new Thread()
+		{
+			public void run()
+			{
+				try
+				{
+					for(int i = 0; i < 5 && !isReady; i++)
+					{
+						//String code = "" + i;
+						output.write(104);
+						//output.write(code.getBytes());
+						System.out.println(i);
+						output.flush();
+					}
+					while(isReady)
+					{
+						//output.write("l".getBytes());
+						System.out.println("State 2");
+					}
+					System.out.println("State 2");
+				} catch (Exception ie)
+				{
+				}
+			}
+		};
+		Thread k = new Thread()
+		{
+			public void run()
+			{
+				try
+				{
+					for(int i = 0; i < 5 && !isReady; i++)
+					{
+						//String code = "" + i;
+						//output.write(104);
+						//output.write(code.getBytes());
+						System.out.println("Dun");
+						//output.flush();
+					}
+					while(isReady)
+					{
+						//output.write("l".getBytes());
+						System.out.println("State 2");
+					}
+					System.out.println("State 2");
+				} catch (Exception ie)
+				{
+				}
+			}
+		};
+		
 		t.start();
+		r.start();
+		k.start();
 		System.out.println("Started");
 	}
 }
