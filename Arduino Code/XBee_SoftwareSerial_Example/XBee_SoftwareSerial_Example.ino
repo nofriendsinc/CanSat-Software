@@ -1,3 +1,7 @@
+#include <ArduinoSTL.h>
+#include <Wire.h> // Must include Wire library for I2C
+#include <SFE_MMA8452Q.h> // Includes the SFE_MMA8452Q library
+
 /*
   Software serial multple serial test
 
@@ -25,31 +29,67 @@
  This example code is in the public domain.
 
  */
-#include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(10, 11); // RX, TX
+MMA8452Q accel; // Default MMA8452Q object create. (Address = 0x1D)
+bool canGo = true;
+int pack = 1;
+int state = 2;
 
 void setup() {
   // Open serial communications and wait for port to open:
-  Serial.begin(57600);
+  Serial.begin(9600);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
-
-  Serial.println("Goodnight moon!");
-
-  // set the data rate for the SoftwareSerial port
-  mySerial.begin(4800);
-  mySerial.println("Hello, world?");
+  accel.init(); // Default init: +/-2g and 800Hz ODR
+  Serial.flush();
 }
 
-void loop() { // run over and over
-  if (mySerial.available()) {
-    Serial.write(mySerial.read());
+void loop() { // run over and over  
+  accel.read(); // Update acceleromter data
+  float mag = sqrt(sq(accel.cx) + sq(accel.cy) + sq(accel.cz));
+  float theta = atan(accel.cy / accel.cx);
+  float atheta = atan(accel.cx / accel.cy);
+  float phi = acos(accel.cz / mag);
+
+  //Serial.println(Serial.read());
+
+  switch (state)  {
+    case 0:
+      if(Serial.read() == 104 && !canGo)  {
+        Serial.println("Received");
+        //state = 3;
+      }
+      break;
+    case 1:
+    if(Serial.read() == 104 && !canGo)  {
+      Serial.read();
+    }
+    if(Serial.read() != 104 && !canGo)  {
+      state = 0;
+    }
+    break;
+    case 3:  
+      if(Serial.read() == 108 & canGo)  {
+        canGo = true;
+        state = 2;
+      }
+      break;
+    case 2:
+      if(canGo)  {
+        Serial.println(millis() / 1000.0);
+        Serial.println(pack);
+        Serial.println(theta);
+        Serial.println(atheta);
+        Serial.println(phi);
+        pack += 1;
+      }
+      break;
   }
-  if (Serial.available()) {
-    mySerial.write(Serial.read());
-  }
+}
+
+float toDegree(float rad) {
+  return (rad * 180) / 2;
 }
 
