@@ -9,15 +9,12 @@ public class test
 		{
 			public void run()
 			{
-				// the following line will keep this app alive for 1000 seconds,
-				// waiting for events to occur and responding to them (printing
-				// incoming messages to console).
 				while(true)
 				{
 					try
 					{
 						Thread.sleep(1000);
-						//System.out.println(main.pack.get(main.pack.size() - 1).getPacketCount());
+						System.out.println(main.getLastPacket());
 					} catch (InterruptedException ie)
 					{
 					}

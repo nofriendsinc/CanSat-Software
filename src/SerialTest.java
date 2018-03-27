@@ -11,19 +11,19 @@ import java.util.Enumeration;
 
 public class SerialTest implements SerialPortEventListener
 {
-	SerialPort serialPort;
+	private SerialPort serialPort;
 	/** The port we're normally going to use. */
 	private static final String PORT_NAMES[] = {"COM5"};
 	private BufferedReader input;
 	private static OutputStream output;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
-	static int lineNum = 1;
-	static int index = 0;
-	static ArrayList<packet> pack = new ArrayList<packet>();
-	static boolean isReceiving = false;
-	static boolean doPrint = false;
-	static boolean isReady = false;
+	private static int lineNum = 1;
+	private static int index = 0;
+	private static ArrayList<packet> pack = new ArrayList<packet>();
+	private static boolean isReceiving = false;
+	private static boolean doPrint = false;
+	private static boolean isReady = false;
 
 	public void initialize()
 	{
@@ -141,6 +141,12 @@ public class SerialTest implements SerialPortEventListener
 		// ones.
 	}
 
+	public packet getLastPacket()
+	{
+		if(pack.size() > 0)		return pack.get(pack.size() - 1);
+		else					return null;
+	}
+	
 	public static void main(String[] args) throws Exception
 	{
 		/*SerialTest main = new SerialTest();
