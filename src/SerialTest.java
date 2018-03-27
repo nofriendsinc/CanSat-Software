@@ -143,7 +143,7 @@ public class SerialTest implements SerialPortEventListener
 
 	public static void main(String[] args) throws Exception
 	{
-		SerialTest main = new SerialTest();
+		/*SerialTest main = new SerialTest();
 		main.initialize();
 		Thread t = new Thread()
 		{
@@ -160,60 +160,7 @@ public class SerialTest implements SerialPortEventListener
 				}
 			}
 		};
-		Thread r = new Thread()
-		{
-			public void run()
-			{
-				try
-				{
-					for(int i = 0; i < 5 && !isReady; i++)
-					{
-						//String code = "" + i;
-						output.write(104);
-						//output.write(code.getBytes());
-						System.out.println(i);
-						output.flush();
-					}
-					while(isReady)
-					{
-						//output.write("l".getBytes());
-						System.out.println("State 2");
-					}
-					System.out.println("State 2");
-				} catch (Exception ie)
-				{
-				}
-			}
-		};
-		Thread k = new Thread()
-		{
-			public void run()
-			{
-				try
-				{
-					for(int i = 0; i < 5 && !isReady; i++)
-					{
-						//String code = "" + i;
-						//output.write(104);
-						//output.write(code.getBytes());
-						System.out.println("Dun");
-						//output.flush();
-					}
-					while(isReady)
-					{
-						//output.write("l".getBytes());
-						System.out.println("State 2");
-					}
-					System.out.println("State 2");
-				} catch (Exception ie)
-				{
-				}
-			}
-		};
-		
 		t.start();
-		r.start();
-		k.start();
-		System.out.println("Started");
+		System.out.println("Started");*/
 	}
 }
