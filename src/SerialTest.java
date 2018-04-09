@@ -18,11 +18,10 @@ public class SerialTest implements SerialPortEventListener
 	private static OutputStream output;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
-	private static int index = 0;
+	
 	private static ArrayList<packet> pack = new ArrayList<packet>();
 	private static boolean isReceiving = false;
 	private static boolean doPrint = false;
-	private static boolean isReady = false;
 
 	public void initialize()
 	{
