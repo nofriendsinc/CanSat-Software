@@ -21,8 +21,58 @@ public class packet
 	private double tiltX;;
 	private double tiltY;
 	private double tiltZ;
-	private double softState;
+	private int softState;
 
+	public packet(String inputLine)
+	{
+		System.out.println("Pass");
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		missionTime = Integer.parseInt(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		packetCount = Integer.parseInt(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		altitude = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		pressure = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		temp = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		voltage = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		gpsTime = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		gpsLat = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		gpsLong = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		gpsAlt = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		gpsSats = Integer.parseInt(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		tiltX = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));	
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		tiltY = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		tiltZ = Double.parseDouble(inputLine.substring(0,  inputLine.indexOf(',')));
+		
+		inputLine = inputLine.substring(inputLine.indexOf(',') + 1);
+		softState = Integer.parseInt(inputLine.substring(0,  inputLine.indexOf(',')));
+	}
+	
 	public float getMissionTime()
 	{
 		return missionTime;
@@ -163,12 +213,12 @@ public class packet
 		return this.tiltZ = tiltZ;
 	}
 
-	public double getSoftState()
+	public int getSoftState()
 	{
 		return softState;
 	}
 
-	public double setSoftState(double softState)
+	public int setSoftState(int softState)
 	{
 		return this.softState = softState;
 	}

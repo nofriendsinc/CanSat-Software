@@ -18,7 +18,6 @@ public class SerialTest implements SerialPortEventListener
 	private static OutputStream output;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
-	private static int lineNum = 1;
 	private static int index = 0;
 	private static ArrayList<packet> pack = new ArrayList<packet>();
 	private static boolean isReceiving = false;
@@ -86,6 +85,7 @@ public class SerialTest implements SerialPortEventListener
 				if (input.ready())
 				{
 					inputLine = input.readLine();
+					inputLine = "5554,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 					if(!inputLine.substring(0, 2).equals("00"))	
 					{
 						isReceiving = true;
@@ -96,7 +96,7 @@ public class SerialTest implements SerialPortEventListener
 						// ALTITUDE>,<GPS SATS>,<TILT X>,<TILT Y>,<TILT Z>,<SOFTWARE STATE>
 						if(inputLine.substring(0,  inputLine.indexOf(',')).equals("5554"))
 						{
-							
+							pack.add(new packet(inputLine));
 						}
 					}
 					else	
