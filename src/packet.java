@@ -21,16 +21,16 @@ public class packet
 	private double tiltX;;
 	private double tiltY;
 	private double tiltZ;
-	private double softSate;
+	private double softState;
 
 	public float getMissionTime()
 	{
 		return missionTime;
 	}
 
-	public void setMissionTime(float missionTime)
+	public float setMissionTime(float missionTime)
 	{
-		this.missionTime = missionTime;
+		return this.missionTime = missionTime;
 	}
 
 	public int getPacketCount()
@@ -38,9 +38,9 @@ public class packet
 		return packetCount;
 	}
 
-	public void setPacketCount(int packetCount)
+	public int setPacketCount(int packetCount)
 	{
-		this.packetCount = packetCount;
+		return this.packetCount = packetCount;
 	}
 
 	public double getAltitude()
@@ -48,9 +48,9 @@ public class packet
 		return altitude;
 	}
 
-	public void setAltitude(double altitude)
+	public double setAltitude(double altitude)
 	{
-		this.altitude = altitude;
+		return this.altitude = altitude;
 	}
 
 	public double getPressure()
@@ -58,9 +58,9 @@ public class packet
 		return pressure;
 	}
 
-	public void setPressure(double pressure)
+	public double setPressure(double pressure)
 	{
-		this.pressure = pressure;
+		return this.pressure = pressure;
 	}
 
 	public double getTemp()
@@ -68,9 +68,9 @@ public class packet
 		return temp;
 	}
 
-	public void setTemp(double temp)
+	public double setTemp(double temp)
 	{
-		this.temp = temp;
+		return this.temp = temp;
 	}
 
 	public double getVoltage()
@@ -78,9 +78,9 @@ public class packet
 		return voltage;
 	}
 
-	public void setVoltage(double voltage)
+	public double setVoltage(double voltage)
 	{
-		this.voltage = voltage;
+		return this.voltage = voltage;
 	}
 
 	public double getGpsTime()
@@ -88,9 +88,9 @@ public class packet
 		return gpsTime;
 	}
 
-	public void setGpsTime(double gpsTime)
+	public double setGpsTime(double gpsTime)
 	{
-		this.gpsTime = gpsTime;
+		return this.gpsTime = gpsTime;
 	}
 
 	public double getGpsLat()
@@ -98,9 +98,9 @@ public class packet
 		return gpsLat;
 	}
 
-	public void setGpsLat(double gpsLat)
+	public double setGpsLat(double gpsLat)
 	{
-		this.gpsLat = gpsLat;
+		return this.gpsLat = gpsLat;
 	}
 
 	public double getGpsLong()
@@ -108,9 +108,9 @@ public class packet
 		return gpsLong;
 	}
 
-	public void setGpsLong(double gpsLong)
+	public double setGpsLong(double gpsLong)
 	{
-		this.gpsLong = gpsLong;
+		return this.gpsLong = gpsLong;
 	}
 
 	public double getGpsAlt()
@@ -118,9 +118,9 @@ public class packet
 		return gpsAlt;
 	}
 
-	public void setGpsAlt(double gpsAlt)
+	public double setGpsAlt(double gpsAlt)
 	{
-		this.gpsAlt = gpsAlt;
+		return this.gpsAlt = gpsAlt;
 	}
 
 	public int getGpsSats()
@@ -128,9 +128,9 @@ public class packet
 		return gpsSats;
 	}
 
-	public void setGpsSats(int gpsSats)
+	public int setGpsSats(int gpsSats)
 	{
-		this.gpsSats = gpsSats;
+		return this.gpsSats = gpsSats;
 	}
 
 	public double getTiltX()
@@ -138,9 +138,9 @@ public class packet
 		return tiltX;
 	}
 
-	public void setTiltX(double tiltX)
+	public double setTiltX(double tiltX)
 	{
-		this.tiltX = tiltX;
+		return this.tiltX = tiltX;
 	}
 
 	public double getTiltY()
@@ -148,9 +148,9 @@ public class packet
 		return tiltY;
 	}
 
-	public void setTiltY(double tiltY)
+	public double setTiltY(double tiltY)
 	{
-		this.tiltY = tiltY;
+		return this.tiltY = tiltY;
 	}
 
 	public double getTiltZ()
@@ -158,19 +158,19 @@ public class packet
 		return tiltZ;
 	}
 
-	public void setTiltZ(double tiltZ)
+	public double setTiltZ(double tiltZ)
 	{
-		this.tiltZ = tiltZ;
+		return this.tiltZ = tiltZ;
 	}
 
-	public double getSoftSate()
+	public double getSoftState()
 	{
-		return softSate;
+		return softState;
 	}
 
-	public void setSoftSate(double softSate)
+	public double setSoftState(double softState)
 	{
-		this.softSate = softSate;
+		return this.softState = softState;
 	}
 
 	public int getTeamID()

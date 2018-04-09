@@ -86,40 +86,17 @@ public class SerialTest implements SerialPortEventListener
 				if (input.ready())
 				{
 					inputLine = input.readLine();
-					//System.out.println(inputLine);
 					if(!inputLine.substring(0, 2).equals("00"))	
 					{
 						isReceiving = true;
 						doPrint = true;
-						switch (lineNum)
+						
+						// <TEAM ID>,<MISSION TIME>,<PACKET COUNT>,<ALTITUDE>, <PRESSURE>,
+						// <TEMP>,<VOLTAGE>,<GPS TIME>,<GPS LATITUDE>,<GPS LONGITUDE>,<GPS
+						// ALTITUDE>,<GPS SATS>,<TILT X>,<TILT Y>,<TILT Z>,<SOFTWARE STATE>
+						if(inputLine.substring(0,  inputLine.indexOf(',')).equals("5554"))
 						{
-						case 1:
-							pack.add(new packet());
-							pack.get(index).setMissionTime(Float.parseFloat(inputLine));
-							System.out.println("t = " + pack.get(index).getPacketCount());
-							lineNum = 2;
-							break;
-						case 2:
-							pack.get(index).setPacketCount(Integer.parseInt(inputLine));
-							System.out.println("p = " + pack.get(index).getPacketCount());
-							lineNum = 3;
-							break;
-						case 3:
-							pack.get(index).setTiltX(Double.parseDouble(inputLine));
-							System.out.println("x = " + pack.get(index).getTiltX());
-							lineNum = 4;
-							break;
-						case 4:
-							pack.get(index).setTiltY(Double.parseDouble(inputLine));
-							System.out.println("y = " + pack.get(index).getTiltY());
-							lineNum = 5;
-							break;
-						case 5:
-							pack.get(index).setTiltZ(Double.parseDouble(inputLine));
-							System.out.println("z = " + pack.get(index).getTiltZ());
-							lineNum = 1;
-							index++;
-							break;
+							
 						}
 					}
 					else	
@@ -145,28 +122,5 @@ public class SerialTest implements SerialPortEventListener
 	{
 		if(pack.size() > 0)		return pack.get(pack.size() - 1);
 		else					return null;
-	}
-	
-	public static void main(String[] args) throws Exception
-	{
-		/*SerialTest main = new SerialTest();
-		main.initialize();
-		Thread t = new Thread()
-		{
-			public void run()
-			{
-				// the following line will keep this app alive for 1000 seconds,
-				// waiting for events to occur and responding to them (printing
-				// incoming messages to console).
-				try
-				{
-					Thread.sleep(1000000);
-				} catch (InterruptedException ie)
-				{
-				}
-			}
-		};
-		t.start();
-		System.out.println("Started");*/
 	}
 }
